@@ -1,4 +1,4 @@
-# hooks-with-jest
+# Git Hooks with Husky
 
 ## Project setup
 ```
