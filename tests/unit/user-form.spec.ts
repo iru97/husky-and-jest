@@ -39,6 +39,5 @@ describe('UserForm.vue', () => {
 
     component.find("[type='submit']").trigger('click');
     expect(component.find('.success').exists()).toBe(true);
-
   });
 })
