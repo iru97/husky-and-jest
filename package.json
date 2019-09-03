@@ -35,7 +35,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node ./scripts/git_branch_name.js && echo $HUSKY_GIT_PARAMS",
+      "commit-msg": "node ./scripts/git_branch_name.js",
       "pre-commit": "npm run lint",
       "pre-push": "npm run test:unit"
     }

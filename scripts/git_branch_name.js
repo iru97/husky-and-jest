@@ -11,7 +11,6 @@ checkBranchName();
 hookCleanup();
 
 async function checkBranchName(){
-  console.log('$HUSKY_GIT_PARAMS ' + process.argv[2])
   try{
     branchName = await getCurrentBranch();
   }
