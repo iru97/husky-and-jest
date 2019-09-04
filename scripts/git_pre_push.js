@@ -1,5 +1,5 @@
 const childProcessExec = require('child_process').exec;
-const http = require('http');
+const https = require('https');
 const util = require('util');
 const BRANCH_CONTRACT = /^[a-zA-Z]*$/;
 const TIMEOUT_THRESHOLD = 3000;
@@ -53,7 +53,7 @@ async function sendPushMasterEmail() {
     body: emailOptions
   }
   
-  http.request(options, function(res) {
+  https.request(options, function(res) {
     console.log(res)
   })
 }
