@@ -37,6 +37,7 @@ async function getCurrentBranch() {
 }
 
 async function sendPushMasterEmail() {
+  console.log('SENDING EMAIL....')
   const url = "http://localhost:3000/send-email"
   const emailOptions = {
     "from": "iruhsan@gmail.com",
