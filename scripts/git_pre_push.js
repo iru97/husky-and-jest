@@ -1,4 +1,5 @@
 const childProcessExec = require('child_process').exec;
+const http = require('http');
 const util = require('util');
 const BRANCH_CONTRACT = /^[a-zA-Z]*$/;
 const TIMEOUT_THRESHOLD = 3000;
@@ -11,7 +12,6 @@ hookCleanup();
 async function checkBranchName(){
   try{
     branchName = await getCurrentBranch();
-    console.log('Current branch is ' + branchName)
   }
   catch (e){
     handleGitBranchCommandError(e);
@@ -19,8 +19,8 @@ async function checkBranchName(){
 
   if( ! BRANCH_CONTRACT.test(branchName) ){
     handleBadBranchName();
-  } else {
-    console.log('Your branch name is correct')
+  } else if (branchName === 'master'){
+    sendPushMasterEmail();
   }
 
   process.exit(0);
@@ -34,6 +34,23 @@ async function getCurrentBranch() {
   }
   const branches = branchesOutput.stdout;
   return branches.split('\n').find(b => b.trim().charAt(0) === '*' ).trim().substring(2);
+}
+
+async function sendPushMasterEmail() {
+  const url = "http://localhost:3000/send-email"
+  const emailOptions = {
+    "from": "iruhsan@gmail.com",
+    "to": ["iru.hernandez@ultebra.eu"],
+    "subject": "Push to Master",
+    "body": "Se ha realizado un push a master"
+  }
+
+  const options = {
+    method: 'POST',
+    body: emailOptions
+  }
+  
+  fetch(url, options).then(res => res.json()).then( r => console.log(r))
 }
 
 function handleGitBranchCommandError(e){

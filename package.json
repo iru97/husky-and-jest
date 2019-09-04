@@ -35,9 +35,10 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node ./scripts/git_branch_name.js",
       "pre-commit": "npm run lint",
-      "pre-push": "npm run test:unit"
+      "pre-push": "node ./scripts/git_pre_push.js",
+      "post-checkout": "node ./scripts/git_branch_name.js",
+      "post-merge": "npm run lint && npm run test:unit"
     }
   }
 }
