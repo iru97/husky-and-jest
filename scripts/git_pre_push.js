@@ -46,11 +46,16 @@ async function sendPushMasterEmail() {
     body: "Se ha realizado un push a master"
   }
   const options = {
+    hostname: 'localhost',
+    port: '3000',
+    path: '/send-email',
     method: 'POST',
     body: emailOptions
   }
   
-  fetch(url, options).then(res => res.json()).then( r => console.log(r)).catch(error => console.error('Error:', error))
+  http.request(options, function(res) {
+    console.log(res)
+  })
 }
 
 function handleGitBranchCommandError(e){
