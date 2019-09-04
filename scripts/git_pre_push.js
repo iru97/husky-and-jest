@@ -20,7 +20,7 @@ async function checkBranchName(){
   if( ! BRANCH_CONTRACT.test(branchName) ){
     handleBadBranchName();
   } else if (branchName === 'master'){
-    sendPushMasterEmail();
+    await sendPushMasterEmail();
   }
 
   process.exit(0);
