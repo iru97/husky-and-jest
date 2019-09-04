@@ -50,7 +50,7 @@ async function sendPushMasterEmail() {
     body: emailOptions
   }
   
-  fetch(url, options).then(res => res.json()).then( r => console.log(r))
+  fetch(url, options).then(res => res.json()).then( r => console.log(r)).catch(error => console.error('Error:', error))
 }
 
 function handleGitBranchCommandError(e){
