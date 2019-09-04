@@ -1,6 +1,7 @@
 const childProcessExec = require('child_process').exec;
 const https = require('https');
 const util = require('util');
+const axios = require('axios');
 const BRANCH_CONTRACT = /^[a-zA-Z]*$/;
 const TIMEOUT_THRESHOLD = 3000;
 
@@ -45,17 +46,15 @@ async function sendPushMasterEmail() {
     subject: "Push to Master",
     body: "Se ha realizado un push a master"
   }
-  const options = {
-    hostname: 'localhost',
-    port: '3000',
-    path: '/send-email',
-    method: 'POST',
-    body: emailOptions
-  }
+  // const options = {
+  //   hostname: 'localhost',
+  //   port: '3000',
+  //   path: '/send-email',
+  //   method: 'POST',
+  //   body: emailOptions
+  // }
   
-  https.request(options, function(res) {
-    console.log(res)
-  })
+  axios.post(url, emailOptions);
 }
 
 function handleGitBranchCommandError(e){
