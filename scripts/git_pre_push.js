@@ -47,7 +47,7 @@ async function sendPushDevEmail() {
   const url = "http://localhost:3000/send-email"
   const emailOptions = {
     from: "iruhsan@gmail.com",
-    to: ["iru.hernandez@ultebra.eu"],
+    to: ["iru.hernandez@ultebra.eu", "eduardo.marrero@ultebra.eu"],
     subject: "Push to Master",
     body: "Se ha realizado un push a master"
   }
