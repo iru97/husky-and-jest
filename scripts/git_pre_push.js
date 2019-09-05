@@ -22,6 +22,8 @@ async function checkBranchName(){
     handleBadBranchName();
   } else if (branchName === 'master'){
     await sendPushMasterEmail();
+  } else if (branchName === 'development') {
+    process.exit(1);
   }
 
   process.exit(0);
