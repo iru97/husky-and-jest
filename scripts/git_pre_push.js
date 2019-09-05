@@ -21,7 +21,10 @@ async function checkBranchName(){
   if( ! BRANCH_CONTRACT.test(branchName) ){
     handleBadBranchName();
   } else if (branchName === 'master'){
-    await sendPushMasterEmail();
+    await sendPushMasterEmail().then((result) => {
+      console.log('Resultado: ' + result)
+      process.exit(0)
+    });
   } else if (branchName === 'development') {
     process.exit(1);
   }
@@ -49,7 +52,7 @@ async function sendPushMasterEmail() {
     body: "Se ha realizado un push a master"
   }
   
-  axios.post(url, { emailOptions });
+  return axios.post(url, { emailOptions })
 }
 
 function handleGitBranchCommandError(e){
