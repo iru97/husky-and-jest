@@ -3,7 +3,7 @@ const https = require('https');
 const util = require('util');
 const axios = require('axios');
 const BRANCH_CONTRACT = /^[a-zA-Z]*$/;
-const TIMEOUT_THRESHOLD = 3000;
+const TIMEOUT_THRESHOLD = 15000;
 
 const exec = util.promisify(childProcessExec);
 let branchName = '';
@@ -20,12 +20,11 @@ async function checkBranchName(){
 
   if( ! BRANCH_CONTRACT.test(branchName) ){
     handleBadBranchName();
-  } else if (branchName === 'master'){
-    await sendPushMasterEmail().then((result) => {
-      console.log('Resultado: ' + result)
-      process.exit(0)
+  } else if (branchName === 'development'){
+    await sendPushDevEmail().then((result) => {
+      process.exit(0);
     });
-  } else if (branchName === 'development') {
+  } else if (branchName === 'master') {
     process.exit(1);
   }
 
@@ -42,7 +41,7 @@ async function getCurrentBranch() {
   return branches.split('\n').find(b => b.trim().charAt(0) === '*' ).trim().substring(2);
 }
 
-async function sendPushMasterEmail() {
+async function sendPushDevEmail() {
   console.log('SENDING EMAIL....')
   const url = "http://localhost:3000/send-email"
   const emailOptions = {
@@ -52,7 +51,7 @@ async function sendPushMasterEmail() {
     body: "Se ha realizado un push a master"
   }
   
-  return axios.post(url, { emailOptions })
+  return axios.post(url, emailOptions);
 }
 
 function handleGitBranchCommandError(e){
