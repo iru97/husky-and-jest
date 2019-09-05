@@ -48,15 +48,8 @@ async function sendPushMasterEmail() {
     subject: "Push to Master",
     body: "Se ha realizado un push a master"
   }
-  // const options = {
-  //   hostname: 'localhost',
-  //   port: '3000',
-  //   path: '/send-email',
-  //   method: 'POST',
-  //   body: emailOptions
-  // }
   
-  axios.post(url, emailOptions);
+  axios.post(url, { emailOptions });
 }
 
 function handleGitBranchCommandError(e){
