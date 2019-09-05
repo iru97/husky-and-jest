@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
@@ -35,9 +36,10 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "node ./scripts/git_branch_name.js",
       "pre-commit": "npm run lint",
-      "pre-push": "npm run test:unit"
+      "pre-push": "node ./scripts/git_pre_push.js",
+      "post-checkout": "node ./scripts/git_branch_name.js",
+      "post-merge": "npm run lint && npm run test:unit"
     }
   }
 }

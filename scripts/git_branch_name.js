@@ -1,8 +1,6 @@
-const fs = require('fs');
 const childProcessExec = require('child_process').exec;
 const util = require('util');
 const BRANCH_CONTRACT = /^[a-zA-Z]*$/;
-// const BRANCH_CONTRACT = /^(feature|hotfix)\/AP-[0-9]{1,6}-/;
 const TIMEOUT_THRESHOLD = 3000;
 
 const exec = util.promisify(childProcessExec);
@@ -13,6 +11,7 @@ hookCleanup();
 async function checkBranchName(){
   try{
     branchName = await getCurrentBranch();
+    console.log('Current branch is ' + branchName)
   }
   catch (e){
     handleGitBranchCommandError(e);
@@ -20,6 +19,8 @@ async function checkBranchName(){
 
   if( ! BRANCH_CONTRACT.test(branchName) ){
     handleBadBranchName();
+  } else {
+    console.log('Your branch name is correct')
   }
 
   process.exit(0);
@@ -50,10 +51,8 @@ function handleBadBranchName(){
 }
 
 function hookCleanup(){
-
   setTimeout(() => {
     console.log('Timeout error');
     process.exit(1);
   },TIMEOUT_THRESHOLD);
-
 }
