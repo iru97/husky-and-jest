@@ -8,6 +8,7 @@ let branchName = '';
 checkBranchName();
 hookCleanup();
 
+
 async function checkBranchName(){
   try{
     branchName = await getCurrentBranch();
