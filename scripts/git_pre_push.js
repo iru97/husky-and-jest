@@ -48,8 +48,8 @@ async function sendPushDevEmail() {
   const emailOptions = {
     from: "iruhsan@gmail.com",
     to: ["iru.hernandez@ultebra.eu"],
-    subject: "Push to dev",
-    body: "Se ha realizado un push a dev"
+    subject: "Ultebra",
+    body: "Ultebra lesson"
   }
   
   return axios.post(url, emailOptions);
